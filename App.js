@@ -1,22 +1,37 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import task from '../app/components/Task';
+import Task from './app/components/task';
+
+
 
 export default function App() {
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.taskContainer}>
-      <Task />
+        {/*heading box and heading text */}
           <View style={styles.inputBox}>
-            <Text style={styles.heading}> Today's List</Text>
-            <View style={styles.input}>
-              <Text></Text>
-            </View>
-            <View style={styles.input}>
-              <Task />
-            </View>
+            <Text style={styles.heading}> To Do List</Text>
           </View>
+
+          {/*outputs */}
+          <View style={styles.input}>
+              <Text></Text>
+          </View>
+          <View style={styles.input}>
+              
+          </View>
+
+          {/*to do inputs */}
+          <View style={styles.toDoInput}>
+            
+              
+          </View>
+          <View style={styles.addIcon}>
+              
+          </View>
+
+
         
 
       </SafeAreaView>
@@ -38,10 +53,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "800",
     margin: 23,
-    top: "30%",
-    alignSelf: 'center'
-
-
+    alignSelf: 'center',
   },
   input : {
     backgroundColor : 'white',
@@ -55,11 +67,31 @@ const styles = StyleSheet.create({
   inputBox : {
     backgroundColor :"black",
     width: '90%',
-    height: 500,
+    height: 70,
     padding : 0,
-    margin: 20,
-    top: "20%",
-    borderRadius:  20
+    top: "10%",
+    borderRadius:  20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center'
+  },
+
+  toDoInput : {
+    width: '70%',
+    height: 45,
+    backgroundColor: 'whitesmoke',
+    borderRadius:  20,
+    margin: 28,
+    top: 420
+  },
+
+  addIcon : {
+    width:45,
+    height: 45,
+    top: 345,
+    left: 305,
+    borderRadius:  30,
+    backgroundColor: 'whitesmoke',
 
   }
 });

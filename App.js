@@ -1,46 +1,65 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { KeyboardAvoidingView, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Keyboard, KeyboardAvoidingView, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Task from './components/Task';
 
-
-
 export default function App() {
-  const [task, setTask] = useState();
+  const [task, setTask] = useState('');
+  const [taskItems, setTaskItems] = useState([])
+
+  const handleAddTask = () => {
+    Keyboard.dismiss();
+    setTaskItems([...taskItems, task])
+    setTask(null)
+  }
+
+  const completeTask = (index) => {
+    let itemsCopy = [...taskItems];
+    itemsCopy.splice(index, 1)
+    setTaskItems(itemsCopy)
+  }
 
   return (
     <View style={styles.container}>
       <SafeAreaView>
-        {/*heading box and heading text */}
         <View style={styles.headerBox}>
           <Text style={styles.heading}> To Do List</Text>
         </View>
 
-          {/*outputs */}
         <View style={styles.myItems}> 
-          <Task text={'Task 1'} />
-          <Task text={'Task 2'} />
-        </View>   
-        
+          {
+            taskItems.map((item, index) => {
+              return (
+                <TouchableOpacity onPress={() => completeTask(index)}>
+                  <Task key={index} text={item} />
+                </TouchableOpacity>
+              )
+            })
+          }
+          {/*<Task text={'Task 1'} />
+          <Task text={'Task 2'} />*/}
+        </View>
 
-          {/*to do inputs */}
-        <KeyboardAvoidingView
-            style={styles.writeTaskBox}>
+        <KeyboardAvoidingView style={styles.writeTaskBox}>
+          <TextInput
+            style={styles.textInput}
+            placeholder={'write a task'}
+            value={task}
+            onChangeText={text => setTask(text)} // Use onChangeText to update the state
+          />
 
-          <TextInput style={styles.textInput} placeholder={'write a task'} />
-
-          <TouchableOpacity>
-            <View style={styles.addBox} >
+          <TouchableOpacity onPress={() => handleAddTask()}>
+            <View style={styles.addBox}>
               <Text style={styles.addText}>+</Text>
             </View>
           </TouchableOpacity>
-
         </KeyboardAvoidingView>
-
       </SafeAreaView>
     </View>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
